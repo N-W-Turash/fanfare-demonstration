@@ -1,0 +1,29 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type VType {
+  _id: String!
+  url: String!
+  title: String!
+}
+
+type VideoType {
+  url: String!
+  title: String!
+}
+
+input VideoInputType {
+  url: String!
+  title: String!
+}
+
+type Query {
+  videos: [VType!]!
+}
+
+type Mutation {
+  createVideo(input: VideoInputType!): VideoType!
+  updateVideo(id: String!, input: VideoInputType!): VideoType!
+  deleteVideo(id: String!): VideoType!
+}
