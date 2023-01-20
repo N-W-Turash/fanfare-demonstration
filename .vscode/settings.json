@@ -1,7 +1,11 @@
 {
     "cSpell.words": [
+        "callout",
+        "formik",
+        "Formik",
         "nestjs",
         "Todos",
-        "turash"
+        "turash",
+        "XADD"
     ]
 }
