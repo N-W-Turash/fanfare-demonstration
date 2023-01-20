@@ -11,6 +11,10 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
+# next.js
+/**/.next/
+/out/
+
 # OS
 .DS_Store
 
