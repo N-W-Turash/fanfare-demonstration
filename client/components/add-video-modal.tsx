@@ -31,7 +31,7 @@ export const loadingComponent = (
 
 const AddVideoModal = ({ showModal, setShowModal }: any) => {
   const handleClose = () => setShowModal(false);
-  const [createVideo, { data, loading, error }] = useMutation(ADD_VIDEO, {
+  const [createVideo, { loading, error }] = useMutation(ADD_VIDEO, {
     refetchQueries: [{ query: GET_VIDEOS }],
   });
 
@@ -59,6 +59,7 @@ const AddVideoModal = ({ showModal, setShowModal }: any) => {
         // validate={validateForm}
       >
         {(props) => {
+          const { handleSubmit, isSubmitting } = props;
           return (
             <Modal show={showModal} onHide={handleClose}>
               <Modal.Header closeButton>
@@ -89,15 +90,21 @@ const AddVideoModal = ({ showModal, setShowModal }: any) => {
                 </Form>
               </Modal.Body>
               <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
+                <Button
+                  variant="light"
+                  className="rounded-1"
+                  onClick={handleClose}
+                >
                   Close
                 </Button>
                 <Button
                   variant="primary"
+                  className="rounded-1"
                   type="submit"
+                  disabled={isSubmitting}
                   onClick={(e) => {
                     e.preventDefault();
-                    props.handleSubmit();
+                    handleSubmit();
                   }}
                 >
                   Save
