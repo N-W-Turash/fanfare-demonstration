@@ -8,22 +8,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
-const app_controller_1 = require("./app.controller");
-const app_service_1 = require("./app.service");
+const config_1 = require("@nestjs/config");
 const graphql_1 = require("@nestjs/graphql");
 const apollo_1 = require("@nestjs/apollo");
 const mongoose_1 = require("@nestjs/mongoose");
+const app_controller_1 = require("./app.controller");
+const app_service_1 = require("./app.service");
 const videos_module_1 = require("./videos/videos.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
+                envFilePath: '.env',
+            }),
             graphql_1.GraphQLModule.forRoot({
                 autoSchemaFile: 'schema.gql',
                 driver: apollo_1.ApolloDriver,
             }),
-            mongoose_1.MongooseModule.forRoot('mongodb+srv://turash:123456_@cluster0.qvyzvkj.mongodb.net/test?retryWrites=true&w=majority'),
+            mongoose_1.MongooseModule.forRoot(`mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`),
             videos_module_1.VideosModule,
         ],
         controllers: [app_controller_1.AppController],

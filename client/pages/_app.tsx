@@ -10,7 +10,7 @@ const App = ({ Component, pageProps, apollo }: any) => (
 
 export default withApollo(({ initialState }) => {
   return new ApolloClient({
-    uri: "http://localhost:8000/graphql",
+    uri: `${process.env.BASE_API_URL}/graphql`,
     cache: new InMemoryCache().restore(initialState || {}),
   });
 })(App);
