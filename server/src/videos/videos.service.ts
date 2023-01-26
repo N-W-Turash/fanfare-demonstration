@@ -2,7 +2,7 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Videos, VideosDocument } from './videos.schema';
-import { VideoType } from './videos.dto';
+import { VideoType, VideoInputType } from './videos.dto';
 
 @Injectable()
 export class VideosService {
@@ -19,7 +19,7 @@ export class VideosService {
     return createdVideo.save();
   }
 
-  async update(id: string, updateCatDto: VideoType): Promise<Videos> {
+  async update(id: string, updateCatDto: VideoInputType): Promise<Videos> {
     return this.videosModel.findByIdAndUpdate(id, updateCatDto);
   }
 

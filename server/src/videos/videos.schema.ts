@@ -4,9 +4,9 @@ import { Document } from 'mongoose';
 @Schema()
 export class Videos {
   @Prop()
-  url: string;
-  @Prop()
   title: string;
+  @Prop()
+  url: string;
 }
 
 export type VideosDocument = Videos & Document;

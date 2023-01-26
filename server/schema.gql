@@ -9,13 +9,8 @@ type VType {
 }
 
 type VideoType {
-  url: String!
   title: String!
-}
-
-input VideoInputType {
   url: String!
-  title: String!
 }
 
 type Query {
@@ -24,6 +19,12 @@ type Query {
 
 type Mutation {
   createVideo(input: VideoInputType!): VideoType!
-  updateVideo(id: String!, input: VideoInputType!): VideoType!
-  deleteVideo(id: String!): VideoType!
 }
+
+input VideoInputType {
+  title: String!
+  image: Upload!
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
