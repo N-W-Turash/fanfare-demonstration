@@ -2,11 +2,13 @@ import { useState } from "react";
 import Head from "next/head";
 import { gql, useQuery } from "@apollo/client";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import YouTube from "react-youtube";
+import { Player } from "video-react";
 import * as Icon from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "node_modules/video-react/dist/video-react.css";
 import withApollo from "../lib/withApollo";
 import AddVideoModal from "@/components/add-video-modal";
+import EditVideoInfoModal from "@/components/edit-video-info-modal";
 import DeleteModal from "@/components/delete-modal";
 import Loader from "@/components/loader";
 import styles from "@/styles/Home.module.css";
@@ -25,6 +27,7 @@ const Home = () => {
   const { loading, error, data } = useQuery(GET_VIDEOS);
   const [show, setShow] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(false);
   if (loading) {
     return <Loader />;
@@ -68,7 +71,7 @@ const Home = () => {
                           <Button
                             variant="danger"
                             size="sm"
-                            className="rounded-1"
+                            className="rounded-1 me-2"
                             onClick={() => {
                               setShowDeleteModal(true);
                               setSelectedVideo(video);
@@ -76,15 +79,25 @@ const Home = () => {
                           >
                             <Icon.Trash2Fill />
                           </Button>
+                          <Button
+                            variant="primary"
+                            size="sm"
+                            className="rounded-1 ms-2"
+                            onClick={() => {
+                              console.log("XXX");
+                              setShowEditModal(true);
+                              setSelectedVideo(video);
+                            }}
+                          >
+                            <Icon.PencilFill />
+                          </Button>
                         </span>
                       </Card.Title>
-                      <div className={styles.videoWrapper}>
-                        <YouTube
-                          videoId={video?.url.replace("https://youtu.be/", "")}
-                          id={video?._id}
-                          title={video?.title}
-                        />
-                      </div>
+                      <Player
+                        playsInline
+                        // poster="/assets/poster.png"
+                        src={video?.url}
+                      />
                     </Card.Body>
                   </Card>
                 </Col>
@@ -97,6 +110,11 @@ const Home = () => {
       <DeleteModal
         showDeleteModal={showDeleteModal}
         setShowDeleteModal={setShowDeleteModal}
+        video={selectedVideo}
+      />
+      <EditVideoInfoModal
+        showEditModal={showEditModal}
+        setShowEditModal={setShowEditModal}
         video={selectedVideo}
       />
     </>

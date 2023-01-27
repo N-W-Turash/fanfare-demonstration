@@ -25,7 +25,7 @@ export class VideoInputType {
   @Field()
   title: string;
   @Field(() => GraphQLUpload)
-  image: Promise<FileUpload>;
+  file: Promise<FileUpload>;
 }
 
 @InputType()

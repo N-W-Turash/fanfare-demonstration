@@ -20,19 +20,19 @@ export class VideosResolver {
   @Mutation(() => VideoType)
   async createVideo(@Args('input') input: VideoInputType) {
     try {
-      const { title, image } = input;
+      const { title, file } = input;
       const baseUrl = process.env.BASE_URL;
-      const { createReadStream, mimetype } = await image;
+      const { createReadStream, mimetype } = await file;
       const extension = mimetype.split('/')[1];
       const fileName = `${Date.now()}.${extension}`;
       const filePath = `./uploads/${fileName}`;
-      const imageUrl = `http://${baseUrl}:${process.env.PORT}/${fileName}`;
+      const fileUrl = `http://${baseUrl}:${process.env.PORT}/${fileName}`;
 
       return new Promise(async (resolve, reject) => {
         createReadStream()
           .pipe(fs.createWriteStream(filePath))
           .on('finish', () => {
-            resolve(this.videosService.create({ url: imageUrl, title }));
+            resolve(this.videosService.create({ url: fileUrl, title }));
           })
           .on('error', (error: Error) => {
             console.log('Error', error);
