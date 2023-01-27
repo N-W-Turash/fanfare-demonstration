@@ -1,7 +1,12 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import * as fs from 'fs';
 import { VideosService } from './videos.service';
-import { VType, VideoType, VideoInputType } from './videos.dto';
+import {
+  VType,
+  VideoType,
+  VideoInputType,
+  VideoUpdateInputType,
+} from './videos.dto';
 
 @Resolver()
 export class VideosResolver {
@@ -11,11 +16,6 @@ export class VideosResolver {
   async videos() {
     return this.videosService.findAll();
   }
-
-  // @Mutation(() => VideoType)
-  // async createVideo(@Args('input') input: VideoType) {
-  //   return this.videosService.create(input);
-  // }
 
   @Mutation(() => VideoType)
   async createVideo(@Args('input') input: VideoInputType) {
@@ -44,13 +44,16 @@ export class VideosResolver {
     }
   }
 
-  // @Mutation(() => VideoType)
-  // async updateVideo(@Args('id') id: string, @Args('input') input: VideoType) {
-  //   return this.videosService.update(id, input);
-  // }
+  @Mutation(() => VideoType)
+  async updateVideo(
+    @Args('id') id: string,
+    @Args('input') input: VideoUpdateInputType,
+  ) {
+    return this.videosService.update(id, input);
+  }
 
-  // @Mutation(() => VideoType)
-  // async deleteVideo(@Args('id') id: string) {
-  //   return this.videosService.delete(id);
-  // }
+  @Mutation(() => VideoType)
+  async deleteVideo(@Args('id') id: string) {
+    return this.videosService.delete(id);
+  }
 }

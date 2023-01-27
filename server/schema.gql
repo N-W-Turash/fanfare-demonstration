@@ -19,6 +19,8 @@ type Query {
 
 type Mutation {
   createVideo(input: VideoInputType!): VideoType!
+  updateVideo(id: String!, input: VideoUpdateInputType!): VideoType!
+  deleteVideo(id: String!): VideoType!
 }
 
 input VideoInputType {
@@ -28,3 +30,7 @@ input VideoInputType {
 
 """The `Upload` scalar type represents a file upload."""
 scalar Upload
+
+input VideoUpdateInputType {
+  title: String!
+}

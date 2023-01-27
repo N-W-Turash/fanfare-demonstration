@@ -1,5 +1,6 @@
 import { ObjectType, Field, InputType } from '@nestjs/graphql';
 import { GraphQLUpload, FileUpload } from 'graphql-upload-minimal';
+import { PickType } from '@nestjs/graphql';
 
 @ObjectType('VType')
 export class VType {
@@ -27,10 +28,15 @@ export class VideoInputType {
   image: Promise<FileUpload>;
 }
 
-@ObjectType('SuccessResultType')
-export class SuccessResultType {
-  @Field()
-  success: boolean;
-  @Field({ nullable: true })
-  message: string;
-}
+@InputType()
+export class VideoUpdateInputType extends PickType(VideoInputType, [
+  'title',
+] as const) {}
+
+// @ObjectType('SuccessResultType')
+// export class SuccessResultType {
+//   @Field()
+//   success: boolean;
+//   @Field({ nullable: true })
+//   message: string;
+// }
